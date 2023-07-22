@@ -96,7 +96,6 @@ dv.paragraph(printDir(directory))
 		}
 
 		if (directoryFiles.length == 0) {
-			// createDirectoryFile functions as expected
 			await this.createDirectoryFile.bind(this)(folder)
 			return
 		}
@@ -132,7 +131,7 @@ dv.paragraph(printDir(directory))
 				const file = f as TFile
 
 				if (file.extension !== 'md') continue
-				if (file.name == folder.name + '.md') {
+				if (file.name == folder.name) {
 					directoryFiles.push(file)
 				}
 			}
