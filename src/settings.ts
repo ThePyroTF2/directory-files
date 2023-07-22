@@ -65,7 +65,7 @@ export class DirectoryFilesSettingTab extends PluginSettingTab {
 			button
 				.setButtonText('Refresh directory files')
 				.onClick(async () => {
-					this.plugin.refreshDirectoryFiles()
+					await this.plugin.refreshDirectoryFiles()
 				})
 		})
 	}

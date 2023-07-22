@@ -122,16 +122,29 @@ dv.paragraph(printDir(directory))
 	}
 
 	async refreshDirectoryFiles() {
-		for (const file of this.app.vault.getFiles()) {
-			if (!(file instanceof TFile)) continue
-			if (file.extension !== 'md') continue
-			if (
-				app.metadataCache.getFileCache(file)?.frontmatter?.tag ==
-				'directory'
-			) {
-				const parent = file.parent
-				await this.app.vault.delete(file)
-				await this.createDirectoryFile.bind(this)(parent as TFolder)
+		for (const f of this.app.vault.getAllLoadedFiles()) {
+			if (!(f instanceof TFolder)) continue
+			const folder = f as TFolder
+
+			const directoryFiles: TFile[] = []
+			for (const f of folder.children) {
+				if (!(f instanceof TFile)) continue
+				const file = f as TFile
+
+				if (file.extension !== 'md') continue
+				if (file.name == folder.name + '.md') {
+					directoryFiles.push(file)
+				}
+			}
+
+			if (directoryFiles.length == 0) {
+				await this.createDirectoryFile.bind(this)(folder)
+				continue
+			}
+			if (directoryFiles.length == 1) {
+				await this.app.vault.delete(directoryFiles[0])
+				await this.createDirectoryFile.bind(this)(folder)
+				continue
 			}
 		}
 	}
