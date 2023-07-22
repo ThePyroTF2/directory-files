@@ -1,12 +1,21 @@
 import { Plugin, TAbstractFile, TFile, TFolder } from 'obsidian'
+import * as settings from './settings'
 
 export default class DirectoryFilesPlugin extends Plugin {
-	onload() {
+	settings: settings.PluginSettings
+
+	async onload() {
+		await this.loadSettings()
+
 		this.registerEvent(
 			this.app.vault.on('create', this.onCreate.bind(this))
 		)
 		this.registerEvent(
 			this.app.vault.on('rename', this.onRename.bind(this))
+		)
+
+		this.addSettingTab(
+			new settings.DirectoryFilesSettingTab(this.app, this)
 		)
 	}
 
@@ -17,9 +26,52 @@ export default class DirectoryFilesPlugin extends Plugin {
 	}
 
 	async createDirectoryFile(folder: TFolder) {
+		const script = `
+const exploreFolder = (ParentDir, DirToExplore) => { let output = {}
+	let children = dv.pages(\`"\${DirToExplore}"\`).file.values.sort()
+	for(const page of children) {
+		let pageParentFolder = page.folder.split('/')[page.folder.split('/').length - 1]
+		if(page.name != pageParentFolder && page.frontmatter?.tag != 'directory' && page.folder.split('/').length == DirToExplore.split('/').length) {
+			output[page.name] = {}
+			output[page.name].link = dv.fileLink(page.path, false, page.name)
+		}
+		if(page.name == pageParentFolder && page.frontmatter?.tag == 'directory' && page.folder.split('/').length == DirToExplore.split('/').length + 1) {
+			let dir = page.folder.split('/')
+			let dirName = dir[dir.length - 1]
+			output[dirName] = {}
+			output[dirName].link = dv.fileLink(page.path, false, dirName)
+			output[dirName].children = exploreFolder(DirToExplore, page.folder)
+		}
+	}
+		
+	return output
+}
+
+const printDir = (dir, depth = 0) => {
+	if(depth > ${this.settings.maxDepth}) return ''
+	let string = '<ul>'
+	for(const page in dir) {
+		const path = dir[page].link.path.match(/(.*).md/)[1]
+		const link = \`<a href="\${path}" class="internal-link" target="_blank" rel="noopener">\${path.split('/')[path.split('/').length - 1]}</a>\`
+		if(dir[page].children != undefined) {
+			string += \`<li class="folder">\${link}</li>\`
+
+			string += printDir(dir[page].children, depth + 1)
+		}
+		else string += \`<li class="note">\${link}</li>\`
+	}
+	return string + '</ul>'
+}
+
+const directory = exploreFolder(dv.current().file.folder, dv.current().file.folder)
+dv.paragraph(printDir(directory))
+`
+
 		await this.app.vault.create(
 			`${folder.path}/${folder.name}.md`,
-			'---\ntag: directory\n---'
+			'---\ntag: directory\n---\n# `= this.file.folder` Directory\n```dataviewjs' +
+				script +
+				'```'
 		)
 	}
 
@@ -54,6 +106,33 @@ export default class DirectoryFilesPlugin extends Plugin {
 				file,
 				`${folder.path}/${folder.name}.md`
 			)
+		}
+	}
+
+	async loadSettings() {
+		this.settings = Object.assign(
+			{},
+			settings.DEFAULT_SETTINGS,
+			await this.loadData()
+		)
+	}
+
+	async saveSettings() {
+		await this.saveData(this.settings)
+	}
+
+	async refreshDirectoryFiles() {
+		for (const file of this.app.vault.getFiles()) {
+			if (!(file instanceof TFile)) continue
+			if (file.extension !== 'md') continue
+			if (
+				app.metadataCache.getFileCache(file)?.frontmatter?.tag ==
+				'directory'
+			) {
+				const parent = file.parent
+				await this.app.vault.delete(file)
+				await this.createDirectoryFile.bind(this)(parent as TFolder)
+			}
 		}
 	}
 }

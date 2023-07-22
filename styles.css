@@ -1,0 +1,6 @@
+li.folder::marker {
+	content: '📁';
+}
+li.note::marker {
+	content: '📝';
+}
