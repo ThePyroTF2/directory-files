@@ -2,7 +2,7 @@ import { Plugin, TAbstractFile, TFile, TFolder } from 'obsidian'
 import * as settings from './settings'
 
 export default class DirectoryFilesPlugin extends Plugin {
-	settings: settings.PluginSettings
+	settings!: settings.PluginSettings
 
 	async onload() {
 		await this.loadSettings()
