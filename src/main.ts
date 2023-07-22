@@ -53,8 +53,8 @@ const printDir = (dir, depth = 0) => {
 	for(const page in dir) {
 		const path = dir[page].link.path.match(/(.*).md/)[1]
 		const link = \`<a href="\${path}" class="internal-link" target="_blank" rel="noopener">\${path.split('/')[path.split('/').length - 1]}</a>\`
-		if(dir[page].children != undefined) {
-			string += \`<li class="folder">\${link}</li>\`
+		if(dir[page].children) {
+			string += \`<li class="\${Object.keys(dir[page].children).length > 0 ? 'folder' : 'empty-folder'}">\${link}</li>\`
 
 			string += printDir(dir[page].children, depth + 1)
 		}
