@@ -131,7 +131,7 @@ dv.paragraph(printDir(directory))
 				const file = f as TFile
 
 				if (file.extension !== 'md') continue
-				if (file.name == folder.name) {
+				if (file.name == folder.name + '.md') {
 					directoryFiles.push(file)
 				}
 			}
