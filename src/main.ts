@@ -25,8 +25,6 @@ export default class DirectoryFilesPlugin extends Plugin {
 
 	async onRename(file: TAbstractFile) {
 		if (!(file instanceof TFolder)) return
-		console.debug('Renamed folder:')
-		console.debug(file)
 		const folder = file as TFolder
 		await this.renameDirectoryFile.bind(this)(folder)
 	}
@@ -45,8 +43,6 @@ export default class DirectoryFilesPlugin extends Plugin {
 			}
 		}
 
-		console.debug(directoryFiles)
-
 		if (directoryFiles.length == 0) {
 			// createDirectoryFile functions as expected
 			await this.createDirectoryFile.bind(this)(folder)
@@ -54,7 +50,7 @@ export default class DirectoryFilesPlugin extends Plugin {
 		}
 		if (directoryFiles.length == 1) {
 			const file = directoryFiles[0]
-			await this.app.vault.rename(
+			await this.app.fileManager.renameFile(
 				file,
 				`${folder.path}/${folder.name}.md`
 			)
