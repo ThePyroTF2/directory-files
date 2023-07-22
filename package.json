@@ -2,14 +2,19 @@
 	"name": "obsidian-directory-folders",
 	"version": "0.0.0",
 	"description": "An Obsidian plugin to automatically create directory files.",
-	"main": "index.js",
-	"author": "Devin",
+	"main": "main.js",
+	"author": "Devin Droddy",
 	"license": "ISC",
 	"devDependencies": {
+		"@types/node": "^20.4.2",
 		"@typescript-eslint/eslint-plugin": "^5.59.9",
 		"@typescript-eslint/parser": "^5.59.9",
+		"builtin-modules": "^3.3.0",
+		"esbuild": "^0.18.15",
 		"eslint": "^8.42.0",
+		"obsidian": "^1.2.8",
 		"prettier": "^2.8.8",
+		"tslib": "^2.6.0",
 		"typescript": "^4.9.5"
 	}
 }
