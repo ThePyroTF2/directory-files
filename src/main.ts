@@ -121,6 +121,7 @@ dv.paragraph(printDir(directory))
 	}
 
 	async refreshDirectoryFiles() {
+		const openFile = this.app.workspace.getActiveFile()
 		for (const f of this.app.vault.getAllLoadedFiles()) {
 			if (!(f instanceof TFolder)) continue
 			const folder = f as TFolder
@@ -147,5 +148,7 @@ dv.paragraph(printDir(directory))
 				continue
 			}
 		}
+		if (openFile)
+			await this.app.workspace.openLinkText(openFile.path, openFile.path)
 	}
 }
