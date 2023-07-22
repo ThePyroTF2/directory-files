@@ -124,6 +124,7 @@ dv.paragraph(printDir(directory))
 		for (const f of this.app.vault.getAllLoadedFiles()) {
 			if (!(f instanceof TFolder)) continue
 			const folder = f as TFolder
+			if (folder.isRoot()) continue
 
 			const directoryFiles: TFile[] = []
 			for (const f of folder.children) {
