@@ -35,12 +35,17 @@ export class DirectoryFilesSettingsTab extends PluginSettingTab {
 						this.plugin.refreshDirectoryFiles()
 					})
 			})
-		new Setting(containerEl).addButton((button) => {
-			button
-				.setButtonText('Refresh directory files')
-				.onClick(async () => {
-					await this.plugin.refreshDirectoryFiles()
-				})
-		})
+		new Setting(containerEl)
+			.addButton((button) => {
+				button
+					.setButtonText('Refresh directory files')
+					.setWarning()
+					.onClick(async () => {
+						await this.plugin.refreshDirectoryFiles(true)
+					})
+			})
+			.setDesc(
+				'WARNING: This will update the contents of any files named after their parent folders. If you wish to preserve the contents of any such files, rename them.'
+			)
 	}
 }

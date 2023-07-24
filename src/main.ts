@@ -89,7 +89,7 @@ dv.paragraph(printDir(directory))
 			const file = f as TFile
 			if (file.extension !== 'md') continue
 			if (
-				app.metadataCache.getFileCache(file)?.frontmatter?.tag ==
+				this.app.metadataCache.getFileCache(file)?.frontmatter?.tag ==
 				'directory'
 			) {
 				directoryFiles.push(file)
@@ -121,7 +121,7 @@ dv.paragraph(printDir(directory))
 		await this.saveData(this.settings)
 	}
 
-	async refreshDirectoryFiles() {
+	async refreshDirectoryFiles(manual = false) {
 		const openFile = this.app.workspace.getActiveFile()
 		for (const f of this.app.vault.getAllLoadedFiles()) {
 			if (!(f instanceof TFolder)) continue
@@ -134,7 +134,12 @@ dv.paragraph(printDir(directory))
 				const file = f as TFile
 
 				if (file.extension !== 'md') continue
-				if (file.name == folder.name + '.md') {
+				if (
+					(manual && file.name == folder.name + '.md') ||
+					(!manual &&
+						this.app.metadataCache.getFileCache(file)?.frontmatter
+							?.tag == 'directory')
+				) {
 					directoryFiles.push(file)
 				}
 			}
