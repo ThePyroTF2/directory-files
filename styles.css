@@ -1,9 +1,33 @@
+/* @settings
+name: Directory Files
+id: directory-files
+settings:
+	- 
+		id: folder-icon
+		title: Folder Icon
+		type: variable-text
+		default: '📁'
+	-
+		id: empty-folder-icon
+		title: Empty Folder Icon
+		type: variable-text
+		default: '📂'
+	-
+		id: note-icon
+		title: Note Icon
+		type: variable-text
+		default: '📝'
+*/
+
 li.folder::marker {
-	content: '📁';
+	content: var(--folder-icon);
+	/* content: '📁'; */
 }
 li.empty-folder::marker {
-	content: '📂';
+	content: var(--empty-folder-icon);
+	/* content: '📂'; */
 }
 li.note::marker {
-	content: '📝';
+	content: var(--note-icon);
+	/* content: '📝'; */
 }
