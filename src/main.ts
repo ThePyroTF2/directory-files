@@ -6,6 +6,7 @@ export default class DirectoryFilesPlugin extends Plugin {
 
 	async onload() {
 		await this.loadSettings()
+		this.app.workspace.trigger('parse-style-settings')
 
 		this.registerEvent(
 			this.app.vault.on('create', this.onCreate.bind(this))
@@ -15,7 +16,7 @@ export default class DirectoryFilesPlugin extends Plugin {
 		)
 
 		this.addSettingTab(
-			new settings.DirectoryFilesSettingTab(this.app, this)
+			new settings.DirectoryFilesSettingsTab(this.app, this)
 		)
 	}
 

@@ -3,17 +3,13 @@ import DirectoryFilesPlugin from './main'
 
 export interface PluginSettings {
 	maxDepth: number
-	// notesIcon: string
-	// foldersIcon: string
 }
 
 export const DEFAULT_SETTINGS: Partial<PluginSettings> = {
 	maxDepth: 2
-	// notesIcon: '📝',
-	// foldersIcon: '📁'
 }
 
-export class DirectoryFilesSettingTab extends PluginSettingTab {
+export class DirectoryFilesSettingsTab extends PluginSettingTab {
 	plugin: DirectoryFilesPlugin
 
 	constructor(app: App, plugin: DirectoryFilesPlugin) {
