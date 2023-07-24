@@ -7,6 +7,7 @@ settings:
 		title: Folder Icon
 		type: variable-text
 		default: '📁'
+		quotes: true
 	-
 		id: empty-folder-icon
 		title: Empty Folder Icon
@@ -19,15 +20,18 @@ settings:
 		default: '📝'
 */
 
+:root {
+	--folder-icon: '📁';
+	--empty-folder-icon: '📂';
+	--note-icon: '📝';
+}
+
 li.folder::marker {
 	content: var(--folder-icon);
-	/* content: '📁'; */
 }
 li.empty-folder::marker {
 	content: var(--empty-folder-icon);
-	/* content: '📂'; */
 }
 li.note::marker {
 	content: var(--note-icon);
-	/* content: '📝'; */
 }
