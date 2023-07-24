@@ -1,6 +1,6 @@
 {
 	"name": "obsidian-directory-folders",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "An Obsidian plugin to automatically create directory files.",
 	"main": "main.js",
 	"author": "Devin Droddy",
