@@ -6,8 +6,9 @@
 	"author": "Devin Droddy",
 	"license": "ISC",
 	"scripts": {
-		"build": "node ./esbuild.config.mjs production",
-		"dev": "node ./esbuild.config.mjs"
+		"build": "node esbuild.config.mjs production",
+		"dev": "node esbuild.config.mjs",
+		"version": "node version-bump.mjs"
 	},
 	"devDependencies": {
 		"@types/node": "^20.4.2",

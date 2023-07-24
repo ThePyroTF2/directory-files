@@ -1,7 +1,7 @@
 {
 	"id": "directory-files",
 	"name": "Directory Files",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"minAppVersion": "1.3.5",
 	"description": "Automatically generate directory files for new folders.",
 	"author": "Devin Droddy",
