@@ -35,28 +35,6 @@ export class DirectoryFilesSettingsTab extends PluginSettingTab {
 						this.plugin.refreshDirectoryFiles()
 					})
 			})
-		// new Setting(containerEl)
-		// 	.setName('Notes Icon')
-		// 	.setDesc('Icon to use for notes')
-		// 	.addText((text) => {
-		// 		text.setValue(this.plugin.settings.notesIcon).onChange(
-		// 			async (value: string) => {
-		// 				this.plugin.settings.notesIcon = value
-		// 				await this.plugin.saveSettings()
-		// 			}
-		// 		)
-		// 	})
-		// new Setting(containerEl)
-		// 	.setName('Folders Icon')
-		// 	.setDesc('Icon to use for folders')
-		// 	.addText((text) => {
-		// 		text.setValue(this.plugin.settings.foldersIcon).onChange(
-		// 			async (value: string) => {
-		// 				this.plugin.settings.foldersIcon = value
-		// 				await this.plugin.saveSettings()
-		// 			}
-		// 		)
-		// 	})
 		new Setting(containerEl).addButton((button) => {
 			button
 				.setButtonText('Refresh directory files')
