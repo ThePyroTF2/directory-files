@@ -13,11 +13,13 @@ settings:
 		title: Empty Folder Icon
 		type: variable-text
 		default: '📂'
+		quotes: true
 	-
 		id: note-icon
 		title: Note Icon
 		type: variable-text
 		default: '📝'
+		quotes: true
 */
 
 :root {
