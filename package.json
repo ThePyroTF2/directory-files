@@ -4,7 +4,7 @@
 	"description": "An Obsidian plugin to automatically create directory files.",
 	"main": "main.js",
 	"author": "Devin Droddy",
-	"license": "ISC",
+	"license": "MIT",
 	"scripts": {
 		"build": "node esbuild.config.mjs production",
 		"dev": "node esbuild.config.mjs",
