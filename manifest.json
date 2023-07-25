@@ -1,10 +1,9 @@
 {
 	"id": "directory-files",
 	"name": "Directory Files",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"minAppVersion": "1.3.3",
 	"description": "Automatically generate directory files for new folders.",
 	"author": "Devin Droddy",
-	"authorUrl": "https://github.com/ThePyroTF2/directory-files",
 	"isDesktopOnly": false
 }
